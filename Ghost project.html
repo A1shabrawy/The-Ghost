@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ghost | Advanced Stealth Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ghost-cyan: #00f2ff;
+            --ghost-dark: #020617;
+            --ghost-surface: rgba(15, 23, 42, 0.85);
+            --accent-red: #ff2d55;
+        }
+
+        body {
+            background-color: var(--ghost-dark);
+            color: #e2e8f0;
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.03) 0%, transparent 70%),
+                linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Glitch Animation */
+        .glitch-text {
+            animation: glitch 3s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        .glass-card {
+            background: var(--ghost-surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.05), transparent);
+            transition: 0.5s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            border-color: var(--ghost-cyan);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
+        }
+
+        .radar-scan {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 242, 255, 0.1), transparent 30%);
+            animation: rotate 4s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .tech-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ghost-cyan), transparent);
+            position: relative;
+        }
+
+        .tech-line::after {
+            content: '';
+            position: absolute;
+            width: 10px; height: 10px;
+            background: var(--ghost-cyan);
+            border-radius: 50%;
+            top: -4px;
+            left: 50%;
+            box-shadow: 0 0 15px var(--ghost-cyan);
+            animation: moveLine 3s infinite alternate;
+        }
+
+        @keyframes moveLine {
+            from { left: 10%; }
+            to { left: 90%; }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .wave {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 5s linear infinite;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .hero-title {
+            background: linear-gradient(to bottom, #fff 40%, var(--ghost-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.3));
+        }
+
+        .signature {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <!-- Background Decor -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-20 z-[-1]">
+        <div class="absolute top-10 left-10 w-64 h-64 border border-cyan-500 rounded-full animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 border border-cyan-500 rounded-full animate-pulse" style="animation-delay: 1s"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-24 relative">
+            <div class="inline-flex items-center gap-2 px-4 py-1 mb-6 border border-cyan-500/30 rounded-full bg-cyan-950/20 backdrop-blur-sm">
+                <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                <span class="text-[10px] tracking-[0.3em] uppercase text-cyan-400 font-bold">Classified: Ghost Protocol v2.0</span>
+            </div>
+            
+            <div class="relative inline-block">
+                <h1 class="text-7xl md:text-9xl font-black mb-4 tracking-tighter hero-title glitch-text">
+                    THE GHOST
+                </h1>
+                <div class="absolute -top-10 -right-10 opacity-20">
+                    <svg width="120" height="120" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="0.5" class="text-cyan-400" />
+                        <path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" stroke-width="0.5" class="text-cyan-400" />
+                    </svg>
+                </div>
+            </div>
+            
+            <p class="text-2xl md:text-3xl font-light text-cyan-200/40 tracking-[0.4em] mt-4">لازم نصنع سلاحنا</p>
+            
+            <div class="mt-12 flex justify-center">
+                <div class="w-64 tech-line"></div>
+            </div>
+        </header>
+
+        <!-- 1. المشاهدة والتأمل -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-center">
+            <div class="lg:col-span-7 glass-card rounded-[2rem] p-10">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/40">
+                        <span class="text-xl font-bold text-cyan-400">01</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white">المشاهدة والتأمل</h2>
+                </div>
+                <p class="text-xl leading-relaxed text-gray-300 font-light">
+                    شاهدنا جميعًا في الحرب الجارية ان المسالة لم تعد جنودًا ودبابات لكن هي مسألة من يسود السماء إما عن طريق الطائرات التي تتجاوز ملايين الدولارات ومحدودة العدد وإما عن طريق الطائرات المسيرة والصواريخ التي لا تتجاوز بضعة آلاف من الدولارات ومهولة العدد وشاهدنا أيضًا إطلاق آلاف الصواريخ ليصيب منها هدفه عشرات فقط بسبب الرادارات وصواريخ الاعتراض فماذا يحدث إذا جاء من يحل هذا اللغز ويخلي الحلو يكمل... هيحصل اي لو أطلق آلاف المسيرات والصواريخ وكل منها اصاب هدفه .. تعالو نشوف
+                </p>
+            </div>
+            
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-sm aspect-square glass-card rounded-full flex items-center justify-center p-8">
+                    <div class="radar-scan"></div>
+                    <svg viewBox="0 0 200 200" class="w-full h-full floating">
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#00f2ff22" stroke-width="1" />
+                        <circle cx="100" cy="100" r="50" fill="none" stroke="#00f2ff22" stroke-width="1" />
+                        <circle cx="100" cy="100" r="20" fill="none" stroke="#00f2ff22" stroke-width="1" />
+                        <rect x="140" y="60" width="4" height="4" fill="#ff2d55" class="animate-pulse" />
+                        <rect x="40" y="130" width="4" height="4" fill="#ff2d55" style="animation-delay: 0.5s" class="animate-pulse" />
+                        <path d="M90 100 L110 100 M100 90 L100 110" stroke="#00f2ff" stroke-width="2" class="opacity-50" />
+                        <text x="105" y="95" fill="#00f2ff" font-size="8" font-family="monospace">GHOST_INIT</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <!-- 2. المشكلة -->
+            <section class="glass-card rounded-[2rem] p-10 border-r-8 border-red-500/30">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/40">
+                            <span class="text-xl font-bold text-red-500">02</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">المشكلة</h2>
+                    </div>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5">
+                        <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                    الأنظمة الحالية تعاني من <span class="text-red-400 font-bold border-b-2 border-red-500/20">الانكشاف الراداري العالي</span>. حتى الصواريخ السريعة، تترك بصمة حرارية وتنعكس عنها الموجات، مما يمنح أنظمة الدفاع الجوي وقتاً كافياً للاعتراض.
+                </p>
+                <div class="mt-4 p-4 bg-black/40 rounded-xl border border-red-500/10">
+                    <svg viewBox="0 0 200 60" class="w-full">
+                        <text x="10" y="15" fill="#ef4444" font-size="8">RADAR WAVE</text>
+                        <path d="M10 30 Q 30 10, 50 30 T 90 30" fill="none" stroke="#ef4444" stroke-width="1" class="wave" />
+                        <rect x="110" y="20" width="40" height="20" fill="#334155" />
+                        <path d="M110 30 Q 90 50, 70 30 T 30 30" fill="none" stroke="#ef4444" stroke-dasharray="2 2" stroke-width="1" />
+                        <text x="10" y="55" fill="#ef4444" font-size="8">STRONG REFLECTION (DETECTED)</text>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- 3. الحل -->
+            <section class="glass-card rounded-[2rem] p-10 border-r-8 border-cyan-500/30">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/40">
+                            <span class="text-xl font-bold text-cyan-500">03</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">الحل: Black Body Radiation</h2>
+                    </div>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="1.5">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                    أيواان اشعاع الجسم الاسود تحويل الصاروخ إلى جسم لا يعكس شيئاً. ليس مجرد طلاء، بل <span class="text-cyan-400 font-bold">اندماج فيزيائي</span> يجعل الصاروخ يبتلع موجات الرادار ويحولها إلى طاقة داخلية، ليختفي تماماً من الشاشات.
+                </p>
+                <div class="mt-4 p-4 bg-black/40 rounded-xl border border-cyan-500/10">
+                    <svg viewBox="0 0 200 60" class="w-full">
+                        <text x="10" y="15" fill="#00f2ff" font-size="8">RADAR WAVE</text>
+                        <path d="M10 30 Q 30 10, 50 30 T 90 30" fill="none" stroke="#00f2ff" stroke-width="1" class="wave" />
+                        <rect x="110" y="20" width="40" height="20" fill="#000" stroke="#00f2ff" stroke-width="0.5" />
+                        <circle cx="130" cy="30" r="5" fill="#00f2ff" class="animate-pulse" opacity="0.3" />
+                        <text x="10" y="55" fill="#00f2ff" font-size="8">TOTAL ABSORPTION (GHOST MODE)</text>
+                    </svg>
+                </div>
+            </section>
+        </div>
+
+        <!-- 4. عوامل الإخفاء -->
+        <section class="mb-16">
+            <div class="flex items-center gap-6 mb-12">
+                <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/40">
+                    <span class="text-3xl font-bold text-cyan-400">04</span>
+                </div>
+                <h2 class="text-4xl font-bold text-white">عوامل الإخفاء المستهدفة</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-8 group">
+                    <div class="mb-6 relative w-16 h-16">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-cyan-400 transition-transform group-hover:rotate-180 duration-700">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="10 5" />
+                            <path d="M50 30 L50 70 M30 50 L70 50" stroke="currentColor" stroke-width="4" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-cyan-400 mb-4">الامتصاص المطلق</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">استخدام سبائك نانوية متطورة تبتلع الترددات الكهرومغناطيسية.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-8 group">
+                    <div class="mb-6 relative w-16 h-16">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-cyan-400">
+                            <path d="M20 50 Q 50 20, 80 50 T 20 50" fill="none" stroke="currentColor" stroke-width="2" class="animate-pulse" />
+                            <circle cx="50" cy="50" r="10" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-cyan-400 mb-4">التلاعب بالمسار</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">تقنيات Metamaterials لجعل الموجات تنزلق حول الجسم.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-8 group">
+                    <div class="mb-6 relative w-16 h-16">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-cyan-400">
+                            <rect x="30" y="30" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M30 30 L10 10 M70 30 L90 10 M30 70 L10 90 M70 70 L90 90" stroke="currentColor" stroke-width="1" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-cyan-400 mb-4">التبريد النشط</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">إخفاء البصمة الحرارية الناتجة عن السرعات الفرط صوتية.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card rounded-2xl p-8 group">
+                    <div class="mb-6 relative w-16 h-16">
+                        <svg viewBox="0 0 100 100" class="w-full h-full text-cyan-400">
+                            <path d="M10 80 L90 80 M10 20 L90 20" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" />
+                            <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="3" />
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-cyan-400 mb-4">تطابق الممانعة</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">جعل ممانعة سطح الصاروخ مطابقة للهواء (Zero Reflection).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. الأدوات -->
+        <section class="glass-card rounded-[3rem] p-12 mb-20 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl"></div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                <div class="md:w-1/2">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/40">
+                            <span class="text-xl font-bold text-cyan-400">05</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white">بيئة المحاكاة: MATLAB & Simulink</h2>
+                    </div>
+                    
+                    <p class="text-gray-300 text-lg mb-10 italic leading-relaxed">سنقوم بربط الفيزياء بالواقع من خلال الأدوات التالية:</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-3 border border-cyan-500/20 rounded-xl bg-cyan-950/20 text-cyan-400 font-mono text-xs flex items-center gap-2">
+                            <span class="w-1 h-1 bg-cyan-400 rounded-full"></span> Radar Toolbox
+                        </div>
+                        <div class="p-3 border border-cyan-500/20 rounded-xl bg-cyan-950/20 text-cyan-400 font-mono text-xs flex items-center gap-2">
+                            <span class="w-1 h-1 bg-cyan-400 rounded-full"></span> Antenna Toolbox
+                        </div>
+                        <div class="p-3 border border-cyan-500/20 rounded-xl bg-cyan-950/20 text-cyan-400 font-mono text-xs flex items-center gap-2">
+                            <span class="w-1 h-1 bg-cyan-400 rounded-full"></span> Aerospace Blockset
+                        </div>
+                        <div class="p-3 border border-cyan-500/20 rounded-xl bg-cyan-950/20 text-cyan-400 font-mono text-xs flex items-center gap-2">
+                            <span class="w-1 h-1 bg-cyan-400 rounded-full"></span> Simscape Heat
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 p-6 border-r-4 border-cyan-500 bg-cyan-500/10 rounded-l-2xl">
+                    <p class="text-gray-200 leading-relaxed text-lg">
+                        سيتم استخدام بيئة المحاكاة المتقدمة لاختبار تفاعل الموجات مع الأجسام السوداء النانوية، لضمان أعلى مستويات الإخفاء قبل التنفيذ الفعلي.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Signature Section -->
+        <footer class="mt-20 py-12 border-t border-cyan-500/20 text-center">
+            <div class="inline-block relative">
+                <div class="flex flex-col items-center gap-2">
+                    <div class="text-xs text-cyan-500/60 uppercase tracking-[0.5em] mb-2 font-bold">Lead Engineer</div>
+                    <div class="signature text-3xl md:text-4xl font-black text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-400">
+                        Eng. Alshabrawy
+                    </div>
+                    <div class="mt-4 flex gap
